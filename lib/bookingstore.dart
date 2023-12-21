@@ -1,0 +1,43 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+class BookingDetails {
+  String name = '';
+  String age = '';
+  String gender = '';
+  String email = '';
+  String address = '';
+  String institute = '';
+  String phoneNumber = '';
+  String category = ''; // Add category field
+  String course = '';
+  String date = '';
+  late DatabaseReference reference;
+  Future<void> saveDataToDatabase() async {
+    reference = FirebaseDatabase.instanceFor(
+        app: Firebase.app(),
+        databaseURL:
+        'https://training-booking-app-default-rtdb.asia-southeast1.firebasedatabase.app/')
+        .ref("Booking");
+
+    Map<String, dynamic> bookingData = {
+      'name': name,
+      'age': age,
+      'gender': gender,
+      'email': email,
+      'address': address,
+      'institute': institute,
+      'phoneNumber': phoneNumber,
+      'category': category,
+      'course': course,
+      'date' : date
+    };
+
+    try {
+      await reference.push().set(bookingData);
+    } catch (error) {
+      print("Failed to store data: $error");
+    }
+  }
+}

@@ -7,6 +7,7 @@ import 'package:training_booking_app/institutesignin.dart';
 import 'package:training_booking_app/main.dart';
 import 'package:training_booking_app/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:training_booking_app/Admin/ViewDetails.dart';
 
 class Admin extends StatelessWidget {
   @override
@@ -379,7 +380,7 @@ class Admin extends StatelessWidget {
                           ),
                           child:InkWell(
                             onTap: () {
-                              print(" see all course");
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => AdminPage()));
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,

@@ -6,11 +6,17 @@ import 'package:firebase_database/firebase_database.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:training_booking_app/utils.dart';
+import 'package:training_booking_app/bookingstore.dart';
 
 import 'main.dart';
 import 'mobileVerify.dart';
 
+
 class Booking extends StatefulWidget {
+  final String category;
+  final String course;
+
+  Booking({required this.category, required this.course});
   @override
   State<Booking> createState() => _BookingState();
 }
@@ -22,6 +28,7 @@ class _BookingState extends State<Booking> {
   final mailController = TextEditingController();
   final addressController = TextEditingController();
   final instituteController = TextEditingController();
+  final BookingDetails bookingDetails = BookingDetails();
 
   late DatabaseReference dbRef;
 
@@ -42,9 +49,11 @@ class _BookingState extends State<Booking> {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
 
-    return Container(
-      width: double.infinity,
-      child: Container(
+    return Scaffold(
+      body:SingleChildScrollView(
+        child: Container(
+        width: double.infinity,
+        child: Container(
         // bookingpageYiu (68:20)
         padding: EdgeInsets.fromLTRB(16 * fem, 110.5 * fem, 16 * fem, 54 * fem),
         width: double.infinity,
@@ -211,7 +220,7 @@ class _BookingState extends State<Booking> {
                     child: Container(
                       height: 44 * fem,
                       child: TextField(
-                        //controller: nameController,   //nameController.text=(has the input)
+                        controller: addressController,   //nameController.text=(has the input)
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -278,19 +287,22 @@ class _BookingState extends State<Booking> {
               height: 48 * fem,
               child: ElevatedButton(
                 onPressed: () {
-                  Map<String, String> Booking = {
-                    'name': nameController.text,
-                    'age': ageController.text,
-                    'gender': genderController.text,
-                    'email': mailController.text,
-                    'address': addressController.text,
-                    'institute': instituteController.text,
-                  };
-                  dbRef.push().set(Booking);
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => phnNum()),
-                  // );
+                  DateTime currentDate = DateTime.now();
+                  String formattedDate = '${currentDate.year}-${currentDate.month}-${currentDate.day}';
+                  BookingDetails bookingDetails = BookingDetails();
+                  bookingDetails.name = nameController.text;
+                  bookingDetails.age = ageController.text;
+                  bookingDetails.gender = genderController.text;
+                  bookingDetails.email = mailController.text;
+                  bookingDetails.address = addressController.text;
+                  bookingDetails.institute = instituteController.text;
+                  bookingDetails.category = widget.category;
+                  bookingDetails.course = widget.course;
+                  bookingDetails.date = formattedDate;
+                  Navigator.push(
+                     context,
+                     MaterialPageRoute(builder: (context) => phnNum(bookingDetails: bookingDetails)),
+                   );
                 },
                 style: ElevatedButton.styleFrom(
                     primary: Color(0xFF243836), alignment: Alignment.center
@@ -317,6 +329,8 @@ class _BookingState extends State<Booking> {
           ],
         ),
       ),
+    ),
+          ),
     );
     //);
   }

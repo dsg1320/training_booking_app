@@ -1,9 +1,13 @@
+
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:training_booking_app/Admin/courseadd.dart';
+import 'package:training_booking_app/bookingPage.dart';
 import 'package:training_booking_app/institutesignin.dart';
 import 'package:training_booking_app/main.dart';
 import 'package:training_booking_app/utils.dart';
@@ -45,7 +49,7 @@ class CourseListWidget extends StatelessWidget {
                 Container(
                   width: 260,// Adjust the width as needed
                   margin: EdgeInsets.only(right: 20.0 * fem), // Add spacing between boxes
-                  child: buildCourseBox(fem, ffem, snapshot.data![index]),
+                  child: buildCourseBox(context,fem, ffem, snapshot.data![index],category),
                 )
             ],
           );
@@ -56,7 +60,7 @@ class CourseListWidget extends StatelessWidget {
   }
 }
 
-Widget buildCourseBox(double fem, double ffem, Course? course) {
+Widget buildCourseBox(BuildContext context,double fem, double ffem, Course? course,String category) {
   return Container(
     // autogroupuosyXTw (Lu2WwQLxFcNyJND6F3UoSy)
     width: double.infinity,
@@ -124,7 +128,10 @@ Widget buildCourseBox(double fem, double ffem, Course? course) {
                 // rectangle393RLM (309:1303)
                 margin: EdgeInsets.fromLTRB(29*fem, 0*fem, 32*fem, 0*fem),
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Booking(category: category,course: course!.name,)));
+                  },
                   style: TextButton.styleFrom (
                     padding: EdgeInsets.zero,
                   ),

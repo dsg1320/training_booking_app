@@ -1,92 +1,162 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:training_booking_app/home_page.dart';
+import 'package:training_booking_app/main.dart';
+import 'package:training_booking_app/mobileVerify.dart';
 import 'package:training_booking_app/utils.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
 import 'package:flutter/gestures.dart';
+import 'package:training_booking_app/bookingPage.dart';
 
-class OTPInputField extends StatefulWidget {
+import 'package:flutter/material.dart';
+import 'package:training_booking_app/bookingstore.dart';
+import 'package:pinput/pinput.dart';
+
+class MyVerify extends StatefulWidget {
+  final BookingDetails bookingDetails;
+  const MyVerify({Key? key, required this.bookingDetails}) : super(key: key);
+
   @override
-  _OTPInputFieldState createState() => _OTPInputFieldState();
+  State<MyVerify> createState() => _MyVerifyState();
 }
 
-class _OTPInputFieldState extends State<OTPInputField> {
-  List<TextEditingController> _controllers = List.generate(6, (_) => TextEditingController());
+class _MyVerifyState extends State<MyVerify> {
 
-  @override
-  void dispose() {
-    for (var controller in _controllers) {
-      controller.dispose();
-    }
-    super.dispose();
-  }
-
-  String _getOTP() {
-    String otp = '';
-    for (var controller in _controllers) {
-      otp += controller.text;
-    }
-    return otp;
-  }
-
+  final FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-    double baseWidth = 360;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
-    double ffem = fem * 0.97;
+    final defaultPinTheme = PinTheme(
+      width: 56,
+      height: 56,
+      textStyle: TextStyle(
+          fontSize: 20,
+          color: Color.fromRGBO(30, 60, 87, 1),
+          fontWeight: FontWeight.w600),
+      decoration: BoxDecoration(
+        border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
+        borderRadius: BorderRadius.circular(20),
+      ),
+    );
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(
-        6,
-        (index) => Container(
-        
-        width: 60.0,
-        height: 60.0,
-         // Adjust the width as needed
-        child: Container(
-          width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          border: Border.all(color: Color(0xff243836)),
-          color: Color(0xffffffff),
-          borderRadius: BorderRadius.circular(4 * fem),
-          boxShadow: [
-            BoxShadow(
-              color: Color(0x28f58229),
-              offset: Offset(0 * fem, 4 * fem),
-              blurRadius: 4 * fem,
-            ),
-          ],
+    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
+      border: Border.all(color: Color.fromRGBO(114, 178, 238, 1)),
+      borderRadius: BorderRadius.circular(8),
+    );
+
+    final submittedPinTheme = defaultPinTheme.copyWith(
+      decoration: defaultPinTheme.decoration?.copyWith(
+        color: Color.fromRGBO(234, 239, 243, 1),
+      ),
+    );
+    var code="";
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            color: Colors.black,
+          ),
         ),
-          child: Center(
-            child: TextField(
-              controller: _controllers[index],
-              keyboardType: TextInputType.number,
-              maxLength: 1,
-              textAlign: TextAlign.center,
-              style:
-                  // TextStyle(
-                  //   fontSize: 24,
-                  //   fontWeight: FontWeight.w400,
-                  //   color: Color(0xff252525),
-                  // ),
-                  safeGoogleFont(
-                'Inter',
-                fontSize: 24 * ffem,
-                fontWeight: FontWeight.w400,
-                height: 1.2125 * ffem / fem,
-                color: Color(0xff252525),
-                //String otp1= _controller.text;
+        elevation: 0,
+      ),
+      body: Container(
+        margin: EdgeInsets.only(left: 25, right: 25),
+        alignment: Alignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/img1.png',
+                width: 150,
+                height: 150,
               ),
-              decoration: InputDecoration(
-                counterText: '',
-                border: OutlineInputBorder(),
+              SizedBox(
+                height: 25,
               ),
-            ),
+              Text(
+                "Phone Verification",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "We need to register your phone without getting started!",
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Pinput(
+                length: 6,
+                // defaultPinTheme: defaultPinTheme,
+                // focusedPinTheme: focusedPinTheme,
+                // submittedPinTheme: submittedPinTheme,
+
+                showCursor: true,
+                onChanged: (value){
+                  code=value;
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 45,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.green.shade600,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    onPressed: () async{
+                      try {
+                        PhoneAuthCredential credential = PhoneAuthProvider
+                            .credential(
+                            verificationId: phnNum.verify, smsCode: code);
+
+                        // Sign the user in (or link) with the credential
+                        await auth.signInWithCredential(credential);
+                        widget.bookingDetails.phoneNumber = auth.currentUser?.phoneNumber ?? '';
+                        await widget.bookingDetails.saveDataToDatabase();
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
+                      } catch(e){
+                        print("wrong otp!");
+                      }
+                    },
+                    child: Text("Verify Phone Number")),
+              ),
+              Row(
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          'phone',
+                              (route) => false,
+                        );
+                      },
+                      child: Text(
+                        "Edit Phone Number ?",
+                        style: TextStyle(color: Colors.black),
+                      ))
+                ],
+              )
+            ],
           ),
         ),
       ),
-    ),);
+    );
   }
 }

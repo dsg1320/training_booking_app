@@ -4,30 +4,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:training_booking_app/otp.dart';
 import 'package:training_booking_app/utils.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:training_booking_app/bookingstore.dart';
 
-import 'confirmation.dart';
 
 class phnNum extends StatefulWidget {
+  final BookingDetails bookingDetails;
+  static String verify="";
+  phnNum({Key? key, required this.bookingDetails}) : super(key: key);
   @override
   State<phnNum> createState() => _phnNumState();
 }
 
 class _phnNumState extends State<phnNum> {
-  final phnController = TextEditingController();
+  //final phnController = TextEditingController();
+  TextEditingController countryController=TextEditingController();
+  var phone="";
 
   late DatabaseReference dbRef;
 
   @override
   void initState(){
+    countryController.text = "+91";
     super.initState();
 //dbRef = FirebaseDatabase.instance.ref().child('Booking');
     dbRef = FirebaseDatabase.instanceFor(
-          app: Firebase.app(),
-          databaseURL:
-              'https://training-booking-app-default-rtdb.asia-southeast1.firebasedatabase.app/')
-      .ref("verification");
+        app: Firebase.app(),
+        databaseURL:
+        'https://training-booking-app-default-rtdb.asia-southeast1.firebasedatabase.app/')
+        .ref("verification");
   }
 
   @override
@@ -35,12 +42,14 @@ class _phnNumState extends State<phnNum> {
     double baseWidth = 375;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    return Container(
-      width: double.infinity,
+    return Scaffold(
+      body: SingleChildScrollView(
       child: Container(
+       width: double.infinity,
+       child: Container(
         // otppageWhX (83:2768)
         padding:
-            EdgeInsets.fromLTRB(22.92 * fem, 128.21 * fem, 24 * fem, 65 * fem),
+        EdgeInsets.fromLTRB(22.92 * fem, 128.21 * fem, 24 * fem, 65 * fem),
         width: double.infinity,
         decoration: BoxDecoration(
           color: Color(0xffa8e4a0),
@@ -76,7 +85,7 @@ class _phnNumState extends State<phnNum> {
                   Container(
                     // phonenodvZ (83:2831)
                     margin:
-                        EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 4 * fem),
+                    EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 4 * fem),
                     width: double.infinity,
                     child: Text(
                       'Enter mobile no.*',
@@ -163,11 +172,13 @@ class _phnNumState extends State<phnNum> {
                                 ),
                                 child: Padding(
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 8.0),
+                                  EdgeInsets.symmetric(horizontal: 8.0),
                                   child: TextField(
-                                    controller: phnController,
+                                    onChanged: (value){
+                                      phone=value;
+                                    },
                                     maxLength:
-                                        10, // Allow exactly 10 characters
+                                    10, // Allow exactly 10 characters
                                     decoration: InputDecoration(
                                       counterText: '', // Hide character count
                                       hintText: 'Phone Number',
@@ -195,7 +206,7 @@ class _phnNumState extends State<phnNum> {
             Container(
               // wehavesendyouanonetimepassword (83:2837)
               margin:
-                  EdgeInsets.fromLTRB(0 * fem, 0 * fem, 2.92 * fem, 251 * fem),
+              EdgeInsets.fromLTRB(0 * fem, 0 * fem, 2.92 * fem, 251 * fem),
               constraints: BoxConstraints(
                 maxWidth: 319 * fem,
               ),
@@ -234,15 +245,17 @@ class _phnNumState extends State<phnNum> {
               width: 328 * fem,
               height: 48 * fem,
               child: ElevatedButton(
-                onPressed: () {
-                  Map<String, String>Booking={
-                      'phn_no': phnController.text,
-                    };
-                    dbRef.push().set(Booking);
-    //                 Navigator.push(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => confirm()),
-    // );
+                onPressed: () async{
+                  await FirebaseAuth.instance.verifyPhoneNumber(
+                    phoneNumber: '${countryController.text+phone}',
+                    verificationCompleted: (PhoneAuthCredential credential) {},
+                    verificationFailed: (FirebaseAuthException e) {},
+                    codeSent: (String verificationId, int? resendToken) {
+                      phnNum.verify=verificationId;
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MyVerify(bookingDetails: widget.bookingDetails)));
+                    },
+                    codeAutoRetrievalTimeout: (String verificationId) {},
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xFF243836),
@@ -264,10 +277,12 @@ class _phnNumState extends State<phnNum> {
                 ),
               ),
             )
-         
+
           ],
         ),
       ),
+    ),
+    ),
     );
   }
 }

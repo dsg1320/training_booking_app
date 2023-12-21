@@ -61,15 +61,6 @@ class Scene1 extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/vector-qTX.png',
-              width: 30,
-              height: 30,
-              color: Color.fromRGBO(77, 119, 34, 1),
-            ),
-            label: 'Notifications',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
               'assets/vector-Vc5.png',
               width: 30,
               height: 30,

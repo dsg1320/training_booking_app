@@ -41,6 +41,12 @@ dependencies:
   firebase_auth: ^4.10.0
   cloud_firestore: ^4.9.2
   firebase_database: ^10.2.6
+  pinput: ^3.0.1
+  open_file: ^3.0.4
+  pdf: ^3.10.7
+  path_provider: ^2.0.15
+  mailer: ^5.1.0
+  url_launcher: ^6.0.12
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +69,10 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  fonts:
+    - family: NotoSans
+      fonts:
+        - asset: assets/fonts/NotoSansMalayalam-VariableFont_wdth,wght.ttf
 
   assets:
     - assets/govt-kerala-1-h6R.png
@@ -113,6 +123,7 @@ flutter:
     - assets/AdminIcons/rightArrow.png
     - assets/Img/categories-bg.png
     - assets/images/AdminWelcomeImg.png
+    - assets/img1.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
