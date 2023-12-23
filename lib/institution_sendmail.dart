@@ -113,7 +113,7 @@ class Scene4 extends StatelessWidget {
                         maxWidth: 97*fem,
                       ),
                       child: Text(
-                        'Send a remainder',
+                        'Send a reminder',
                         textAlign: TextAlign.center,
                         style: safeGoogleFont (
                           'Inter',

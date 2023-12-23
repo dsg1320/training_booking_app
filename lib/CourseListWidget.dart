@@ -131,6 +131,8 @@ Widget buildCourseBox(BuildContext context,double fem, double ffem, Course? cour
                   onPressed: () {
 
                     Navigator.push(context, MaterialPageRoute(builder: (context) => Booking(category: category,course: course!.name,)));
+                    print(category);
+                    print(course);
                   },
                   style: TextButton.styleFrom (
                     padding: EdgeInsets.zero,

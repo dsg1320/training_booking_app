@@ -29,14 +29,7 @@ class _LoginpageState extends State<Loginpage>{
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
     return Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 40,
-          backgroundColor: Color(0xffa4e299),
-        leading: IconButton(
-         icon: Icon(Icons.arrow_back, color: Colors.green),
-    onPressed: () => Navigator.of(context).pop(),
-    ),
-        ),
+        
       body: SingleChildScrollView(
        child: Container(
        width: double.infinity,
@@ -204,15 +197,7 @@ class _LoginpageState extends State<Loginpage>{
             SizedBox(
               height: 5,
             ),
-            TextButton(
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
-              },
-              child: Text(
-                'New Institute? Register here.',
-                style: TextStyle(color: Colors.black, fontSize: 15),
-              ),
-            ),
+           
           ],
         ),
       ),

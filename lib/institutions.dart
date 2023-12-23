@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:training_booking_app/categories.dart';
+import 'package:training_booking_app/institution_sendmail.dart';
 import 'package:training_booking_app/main.dart';
 import 'package:training_booking_app/utils.dart';
 import 'package:training_booking_app/institutesignin.dart';
@@ -151,40 +153,45 @@ class Scene3 extends StatelessWidget {
                               ),
                             ],
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Center(
-                                // addparticipantusP (I218:1209;21:25)
-                                child: Container(
-                                  margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 8*fem),
-                                  constraints: BoxConstraints (
-                                    maxWidth: 104*fem,
-                                  ),
-                                  child: Text(
-                                    'Add participant',
-                                    textAlign: TextAlign.center,
-                                    style: safeGoogleFont (
-                                      'Inter',
-                                      fontSize: 16*ffem,
-                                      fontWeight: FontWeight.w500,
-                                      height: 1.2125*ffem/fem,
-                                      color: Color(0xff000000),
+                          child: InkWell(
+                            onTap: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => Scene1()));
+                              },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Center(
+                                  // addparticipantusP (I218:1209;21:25)
+                                  child: Container(
+                                    margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 8*fem),
+                                    constraints: BoxConstraints (
+                                      maxWidth: 104*fem,
+                                    ),
+                                    child: Text(
+                                      'Add participant',
+                                      textAlign: TextAlign.center,
+                                      style: safeGoogleFont (
+                                        'Inter',
+                                        fontSize: 16*ffem,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.2125*ffem/fem,
+                                        color: Color(0xff000000),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                // vector1vR (218:1212)
-                                width: 21*fem,
-                                height: 19*fem,
-                                child: Image.asset(
-                                  'assets/vector-ji1.png',
+                                Container(
+                                  // vector1vR (218:1212)
                                   width: 21*fem,
                                   height: 19*fem,
+                                  child: Image.asset(
+                                    'assets/vector-ji1.png',
+                                    width: 21*fem,
+                                    height: 19*fem,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                         Container(
@@ -203,41 +210,46 @@ class Scene3 extends StatelessWidget {
                               ),
                             ],
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Center(
-                                // sendmailF45 (I218:1213;21:25)
-                                child: Container(
-                                  margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 8*fem),
-                                  constraints: BoxConstraints (
-                                    maxWidth: 115*fem,
-                                  ),
-                                  child: Text(
-                                    'Send e-mail/SMS',
-                                    textAlign: TextAlign.center,
-                                    style: safeGoogleFont (
-                                      'Inter',
-                                      fontSize: 16*ffem,
-                                      fontWeight: FontWeight.w500,
-                                      height: 1.2125*ffem/fem,
-                                      color: Color(0xff000000),
+                          child: InkWell(
+                            onTap: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => Scene4()));
+                              },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Center(
+                                  // sendmailF45 (I218:1213;21:25)
+                                  child: Container(
+                                    margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 8*fem),
+                                    constraints: BoxConstraints (
+                                      maxWidth: 115*fem,
+                                    ),
+                                    child: Text(
+                                      'Send e-mail/SMS',
+                                      textAlign: TextAlign.center,
+                                      style: safeGoogleFont (
+                                        'Inter',
+                                        fontSize: 16*ffem,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.2125*ffem/fem,
+                                        color: Color(0xff000000),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                // vector87s (218:1217)
-                                margin: EdgeInsets.fromLTRB(20*fem, 0*fem, 0*fem, 0*fem),
-                                width: 31*fem,
-                                height: 26*fem,
-                                child: Image.asset(
-                                  'assets/vector-TQ5.png',
+                                Container(
+                                  // vector87s (218:1217)
+                                  margin: EdgeInsets.fromLTRB(20*fem, 0*fem, 0*fem, 0*fem),
                                   width: 31*fem,
                                   height: 26*fem,
+                                  child: Image.asset(
+                                    'assets/vector-TQ5.png',
+                                    width: 31*fem,
+                                    height: 26*fem,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -259,38 +271,43 @@ class Scene3 extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Center(
-                          // addparticipant8GH (I218:1218;21:25)
-                          child: Container(
-                            margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 10*fem),
-                            child: Text(
-                              'View Details',
-                              textAlign: TextAlign.center,
-                              style: safeGoogleFont (
-                                'Inter',
-                                fontSize: 16*ffem,
-                                fontWeight: FontWeight.w500,
-                                height: 1.2125*ffem/fem,
-                                color: Color(0xff000000),
+                    child: InkWell(
+                      onTap: () {
+                                
+                              },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Center(
+                            // addparticipant8GH (I218:1218;21:25)
+                            child: Container(
+                              margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 10*fem),
+                              child: Text(
+                                'View Details',
+                                textAlign: TextAlign.center,
+                                style: safeGoogleFont (
+                                  'Inter',
+                                  fontSize: 16*ffem,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.2125*ffem/fem,
+                                  color: Color(0xff000000),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Container(
-                          // vectorEKK (218:1221)
-                          margin: EdgeInsets.fromLTRB(1*fem, 0*fem, 0*fem, 0*fem),
-                          width: 24*fem,
-                          height: 31*fem,
-                          child: Image.asset(
-                            'assets/vector-CW5.png',
+                          Container(
+                            // vectorEKK (218:1221)
+                            margin: EdgeInsets.fromLTRB(1*fem, 0*fem, 0*fem, 0*fem),
                             width: 24*fem,
                             height: 31*fem,
+                            child: Image.asset(
+                              'assets/vector-CW5.png',
+                              width: 24*fem,
+                              height: 31*fem,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
