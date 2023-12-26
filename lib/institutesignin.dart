@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:training_booking_app/Admin/AdminHome.dart';
 import 'package:training_booking_app/categories.dart';
-import 'package:training_booking_app/institutions.dart';
+import 'package:training_booking_app/Institute/institutions.dart';
 import 'package:training_booking_app/register.dart';
 import 'package:training_booking_app/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

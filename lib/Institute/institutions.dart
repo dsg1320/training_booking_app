@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:training_booking_app/Institute/SeeDetails.dart';
 import 'package:training_booking_app/categories.dart';
 import 'package:training_booking_app/institution_sendmail.dart';
 import 'package:training_booking_app/main.dart';
@@ -273,7 +274,7 @@ class Scene3 extends StatelessWidget {
                     ),
                     child: InkWell(
                       onTap: () {
-                                
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => InstitutePage()));
                               },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,

@@ -28,6 +28,7 @@ class _RegisterState extends State<Register> {
   final TextEditingController name = new TextEditingController();
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController mobile = new TextEditingController();
+  final TextEditingController instituteNameController = TextEditingController();
   bool _isObscure = true;
   bool _isObscure2 = true;
   File? file;
@@ -37,6 +38,21 @@ class _RegisterState extends State<Register> {
   ];
   var _currentItemSelected = "Institute";
   var rool = "Institute";
+
+  List<String> instituteNames = [
+    'LMTC കുടപ്പനക്കുന്ന്,തിരുവനന്തപുരം',
+    'LMTC കൊട്ടിയം, കൊല്ലം',
+    'LMTC തലയോലപ്പറമ്പ്,കോട്ടയം',
+    'LMTC വാഗമൺ, ഇടുക്കി',
+    'LMTC ആലുവ എറണാകുളം',
+    'LMTC മലമ്പുഴ, പാലക്കാട്',
+    'LMTC ആദവനാട്, മലപ്പുറം',
+    'LMTC മുണ്ടയാട്, കണ്ണൂർ',
+    'LMTC സുൽത്താൻബത്തേരി, വയനാട്',
+    // Add other institute names as needed
+  ];
+
+  String? selectedInstitute;
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +118,31 @@ class _RegisterState extends State<Register> {
                         ),
                         SizedBox(
                           height: 50,
+                        ),
+                        DropdownButtonFormField<String>(
+                          value: selectedInstitute,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Institute Name',
+                            hintText: 'Select institute name',
+                          ),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedInstitute = newValue;
+                            });
+                          },
+                          items: instituteNames.map((String institute) {
+                            return DropdownMenuItem<String>(
+                              value: institute,
+                              child: Text(institute),
+                            );
+                          }).toList(),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please select an institute';
+                            }
+                            return null;
+                          },
                         ),
                         TextFormField(
                           controller: emailController,
@@ -301,17 +342,39 @@ class _RegisterState extends State<Register> {
     if (_formkey.currentState!.validate()) {
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) => {postDetailsToFirestore(email, rool)})
+          .then((value) => {postDetailsToFirestore(email, rool, selectedInstitute!)})
           .catchError((e) {});
     }
   }
 
-  postDetailsToFirestore(String email, String rool) async {
+  Future<void> postDetailsToFirestore(String email, String rool, String instituteName) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     var user = _auth.currentUser;
+
+    // Update the user's display name with the institute name
+    try {
+      await user!.updateDisplayName(instituteName);
+      print('Display name updated to: $instituteName');
+    } catch (e) {
+      print('Error updating display name: $e');
+      // Handle error setting display name
+    }
+
+    // Store other details in Firestore
     CollectionReference ref = FirebaseFirestore.instance.collection('users');
-    ref.doc(user!.uid).set({'email': emailController.text, 'rool': rool});
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Loginpage()));
+    ref.doc(user!.uid).set({
+      'email': emailController.text,
+      'rool': rool,
+      'instituteName': instituteName,
+    }).then((_) {
+      // Navigate to the login page after details are stored
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Loginpage()),
+      );
+    }).catchError((error) {
+      print('Error storing details: $error');
+      // Handle error storing details
+    });
   }
 }

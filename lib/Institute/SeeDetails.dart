@@ -3,30 +3,22 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:google_fonts/google_fonts.dart' as gf;
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 
 
 
-class AdminPage extends StatefulWidget {
+
+class InstitutePage extends StatefulWidget {
   @override
-  _AdminPageState createState() => _AdminPageState();
+  _InstitutePageState createState() => _InstitutePageState();
 }
 
-class _AdminPageState extends State<AdminPage> {
+class _InstitutePageState extends State<InstitutePage> {
   late DatabaseReference dbRef;
   Set<int> selectedRows = Set<int>();
   String? selectedFilter;
   List<Map<String, dynamic>> bookingList = [];
-  List<String> instituteNames = [];
   List<String> courseNames = [];
   List<String> categoryNames = [];
   List<Map<String, dynamic>> backupBookingList = [];
@@ -53,63 +45,64 @@ class _AdminPageState extends State<AdminPage> {
   }
   // Method to fetch data from Firebase
   void fetchData() {
-    dbRef.onValue.listen((DatabaseEvent event) {
-      if (event.snapshot.value != null) {
-        Map<dynamic, dynamic> values =
-        event.snapshot.value as Map<dynamic, dynamic>;
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user != null){
+      String loggedInInstituteName = user.displayName ?? '';
+      print(loggedInInstituteName);
+      dbRef.onValue.listen((DatabaseEvent event) {
+        if (event.snapshot.value != null) {
+          Map<dynamic, dynamic> values =
+          event.snapshot.value as Map<dynamic, dynamic>;
 
-        bookingList.clear(); // Clear existing list before updating
-        instituteNames.clear();
-        courseNames.clear();
-        categoryNames.clear();
+          bookingList.clear(); // Clear existing list before updating
+          courseNames.clear();
+          categoryNames.clear();
 
-        values.forEach((key, value) {
-          bookingList.add({
-            'name': value['name'],
-            'address': value['address'],
-            'phoneNumber': value['phoneNumber'],
-            'category': value['category'],
-            'course': value['course'],
-            'institute': value['institute'],
-            'date': value['date'],
-            'uniqueIdentifier': value['uniqueIdentifier'],
-            'completed': value['completed'],
-          });
+          values.forEach((key, value) {
+            if (value['institute'] == loggedInInstituteName){
+              bookingList.add({
+                'name': value['name'],
+                'address': value['address'],
+                'phoneNumber': value['phoneNumber'],
+                'category': value['category'],
+                'course': value['course'],
+                'institute': value['institute'],
+                'date': value['date'],
+                'uniqueIdentifier': value['uniqueIdentifier'],
+                'completed': value['completed'],
+              });
 
-          backupBookingList.add({
-            'name': value['name'],
-            'address': value['address'],
-            'phoneNumber': value['phoneNumber'],
-            'category': value['category'],
-            'course': value['course'],
-            'institute': value['institute'],
-            'date': value['date'],
-            'uniqueIdentifier': value['uniqueIdentifier'],
-            'completed': value['completed'],
+              backupBookingList.add({
+                'name': value['name'],
+                'address': value['address'],
+                'phoneNumber': value['phoneNumber'],
+                'category': value['category'],
+                'course': value['course'],
+                'institute': value['institute'],
+                'date': value['date'],
+                'uniqueIdentifier': value['uniqueIdentifier'],
+                'completed': value['completed'],
 
-            // Add other fields as needed
-          });
+                // Add other fields as needed
+              });
 
-          // Get distinct institute names
-          if (!instituteNames.contains(value['institute'])) {
-            instituteNames.add(value['institute']);
+              // Get distinct course names
+              if (!courseNames.contains(value['course'])) {
+                courseNames.add(value['course']);
+              }
+
+              // Get distinct category names
+              if (!categoryNames.contains(value['category'])) {
+                categoryNames.add(value['category']);
+              }
           }
+              });
 
-          // Get distinct course names
-          if (!courseNames.contains(value['course'])) {
-            courseNames.add(value['course']);
-          }
-
-          // Get distinct category names
-          if (!categoryNames.contains(value['category'])) {
-            categoryNames.add(value['category']);
-          }
-        });
-
-        // Set state after fetching data to trigger rebuild with fetched data
-        setState(() {});
-      }
-    });
+          // Set state after fetching data to trigger rebuild with fetched data
+          setState(() {});
+        }
+      });
+  }
   }
 
   // Method to filter data based on selected criteria
@@ -117,9 +110,7 @@ class _AdminPageState extends State<AdminPage> {
     setState(() {
       selectedFilter = filterOption;
 
-      if (selectedFilter == 'Institute') {
-        _showFilterOptions(instituteNames, 'Select Institute');
-      } else if (selectedFilter == 'Course') {
+      if (selectedFilter == 'Course') {
         _showFilterOptions(courseNames, 'Select Course');
       } else if (selectedFilter == 'Category') {
         _showFilterOptions(categoryNames, 'Select Category');
@@ -147,10 +138,7 @@ class _AdminPageState extends State<AdminPage> {
                     setState(() {
                       bookingList = List.from(backupBookingList);
                       //bookingList = []; // Clear the list before filtering
-                      if (selectedFilter == 'Institute') {
-                        bookingList.retainWhere((e) =>
-                        e['institute'] == option);
-                      } else if (selectedFilter == 'Course') {
+                      if (selectedFilter == 'Course') {
                         bookingList.retainWhere((e) => e['course'] == option);
                       } else if (selectedFilter == 'Category') {
                         bookingList.retainWhere((e) => e['category'] == option);
@@ -185,10 +173,6 @@ class _AdminPageState extends State<AdminPage> {
             itemBuilder: (BuildContext context) =>
             <PopupMenuEntry<String>>[
               PopupMenuItem<String>(
-                value: 'Institute',
-                child: Text('Institute Name'),
-              ),
-              PopupMenuItem<String>(
                 value: 'Course',
                 child: Text('Course Name'),
               ),
@@ -221,7 +205,7 @@ class _AdminPageState extends State<AdminPage> {
             }
             return DataRow(
               selected: isSelected,
-                onSelectChanged: (_){
+              onSelectChanged: (_){
                 if(isSelected){
                   setState(() {
                     selectedRows.remove(index);
@@ -231,23 +215,23 @@ class _AdminPageState extends State<AdminPage> {
                     selectedRows.add(index);
                   });
                 }
-                },
+              },
 
-                cells: [
-              DataCell(Text('${booking['name']}')),
-              DataCell(Text('${booking['address']}')),
-              DataCell(Text('${booking['phoneNumber']}')),
-              DataCell(Text('${booking['category']}')),
-              DataCell(Text('${booking['course']}')),
-              DataCell(Text('${booking['institute']}')),
-              DataCell(Text('${booking['date']}')),
-            ],
-                color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states){
-                  if (states.contains(MaterialState.selected)) {
-                    return null;
-                  }
-                  return isCompleted() ? Colors.lightGreen[50] : null;
-            }),
+              cells: [
+                DataCell(Text('${booking['name']}')),
+                DataCell(Text('${booking['address']}')),
+                DataCell(Text('${booking['phoneNumber']}')),
+                DataCell(Text('${booking['category']}')),
+                DataCell(Text('${booking['course']}')),
+                DataCell(Text('${booking['institute']}')),
+                DataCell(Text('${booking['date']}')),
+              ],
+              color: MaterialStateProperty.resolveWith<Color?>((Set<MaterialState> states){
+                if (states.contains(MaterialState.selected)) {
+                  return null;
+                }
+                return isCompleted() ? Colors.lightGreen[50] : null;
+              }),
             );
           }).toList(),
         ),
@@ -257,21 +241,6 @@ class _AdminPageState extends State<AdminPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green,
-              ),
-              child: Text('View Statistics'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green,
-              ),
-              child: Text('Export'),
-            ),
             ElevatedButton(
               onPressed: (){
                 deleteSelectedRows();
@@ -297,13 +266,7 @@ class _AdminPageState extends State<AdminPage> {
       ),
     );
   }
-  pw.Widget _buildTableCell(String text, {pw.TextStyle? style}) {
-    return pw.Container(
-      padding: pw.EdgeInsets.all(8),
-      alignment: pw.Alignment.center,
-      child: pw.Text(text, style: style),
-    );
-  }
+
   void saveMarkedRows() {
     int countCompleted = 0;
     // Logic to save marked rows as completed
