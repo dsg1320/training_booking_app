@@ -23,7 +23,6 @@ class MyVerify extends StatefulWidget {
 }
 
 class _MyVerifyState extends State<MyVerify> {
-
   final FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
@@ -50,7 +49,7 @@ class _MyVerifyState extends State<MyVerify> {
         color: Color.fromRGBO(234, 239, 243, 1),
       ),
     );
-    var code="";
+    var code = "";
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -89,7 +88,7 @@ class _MyVerifyState extends State<MyVerify> {
                 height: 10,
               ),
               Text(
-                "We need to register your phone without getting started!",
+                "We need to register your phone before getting started!",
                 style: TextStyle(
                   fontSize: 16,
                 ),
@@ -105,8 +104,8 @@ class _MyVerifyState extends State<MyVerify> {
                 // submittedPinTheme: submittedPinTheme,
 
                 showCursor: true,
-                onChanged: (value){
-                  code=value;
+                onChanged: (value) {
+                  code = value;
                 },
               ),
               SizedBox(
@@ -120,22 +119,37 @@ class _MyVerifyState extends State<MyVerify> {
                         primary: Colors.green.shade600,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                    onPressed: () async{
+                    onPressed: () async {
                       try {
-                        PhoneAuthCredential credential = PhoneAuthProvider
-                            .credential(
-                            verificationId: phnNum.verify, smsCode: code);
+                        PhoneAuthCredential credential =
+                            PhoneAuthProvider.credential(
+                                verificationId: phnNum.verify, smsCode: code);
 
                         // Sign the user in (or link) with the credential
                         await auth.signInWithCredential(credential);
-                        widget.bookingDetails.phoneNumber = auth.currentUser?.phoneNumber ?? '';
+                        widget.bookingDetails.phoneNumber =
+                            auth.currentUser?.phoneNumber ?? '';
                         await widget.bookingDetails.saveDataToDatabase();
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
-                      } catch(e){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content:
+                                Text('Thank you!'), // Display success message
+                          ),
+                        );
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MyApp()));
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content:
+                                Text('Wrong OTP!'), // Display error message
+                          ),
+                        );
                         print("wrong otp!");
                       }
                     },
-                    child: Text("Verify Phone Number")),
+                    child: Text("Verify Phone Number",
+                        style: TextStyle(color: Colors.white))),
               ),
               Row(
                 children: [
@@ -144,7 +158,7 @@ class _MyVerifyState extends State<MyVerify> {
                         Navigator.pushNamedAndRemoveUntil(
                           context,
                           'phone',
-                              (route) => false,
+                          (route) => false,
                         );
                       },
                       child: Text(

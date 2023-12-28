@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:training_booking_app/utils.dart';
 import 'package:training_booking_app/bookingstore.dart';
 
-import 'main.dart';
+//import 'main.dart';
 import 'mobileVerify.dart';
 
 class Booking extends StatefulWidget {
@@ -20,9 +20,20 @@ class Booking extends StatefulWidget {
   State<Booking> createState() => _BookingState();
 }
 
- bool isAdditionalFieldRequired(String category, String course) {
-  return (category == 'Farmers Training' && course == 'പശു പരിപാലനം') ||
-         (category == 'Farmers Training' && course == 'ആട് വളർത്തൽ');
+bool isAdditionalFieldRequired(String course) {
+  if (course == 'പശു പരിപാലനം ' ||
+      course == 'എരുമ വളർത്തൽ' ||
+      course == 'താറാവ്‌കോഴി വളർത്തൽ' ||
+      course == 'പന്നി വളർത്തൽ' ||
+      course == 'ഓമനമൃഗങ്ങളുടെ പരിപാലനം' ||
+      course == 'മുയൽ വളർത്തൽ' ||
+      course == 'ആട് വളർത്തൽ' ||
+      course == 'പോത്ത് വളർത്തൽ')
+  // || widget.course == 'Farmers Training' || widget.course == 'ആട് വളർത്തൽ');
+  {
+    return true;
+  }
+  return false;
 }
 
 class _BookingState extends State<Booking> {
@@ -34,6 +45,7 @@ class _BookingState extends State<Booking> {
   final mailController = TextEditingController();
   final addressController = TextEditingController();
   final instituteController = TextEditingController();
+  final animCountController = TextEditingController();
   final BookingDetails bookingDetails = BookingDetails();
 
   late DatabaseReference dbRef;
@@ -49,17 +61,15 @@ class _BookingState extends State<Booking> {
             databaseURL:
                 'https://training-booking-app-default-rtdb.asia-southeast1.firebasedatabase.app/')
         .ref("Booking");
+    showAdditionalField = isAdditionalFieldRequired(widget.course);
   }
-
- 
-
 
   @override
   Widget build(BuildContext context) {
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-
+    print(widget.course);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -150,7 +160,7 @@ class _BookingState extends State<Booking> {
                                     BorderRadius.all(Radius.circular(4.0)),
                               ),
                             ),
-                           // keyboardType: TextInputType.number,
+                            // keyboardType: TextInputType.number,
                             style: TextStyle(
                               fontFamily: 'Inter',
                               fontSize: 15 * fem,
@@ -270,6 +280,7 @@ class _BookingState extends State<Booking> {
                               if (newValue != null) {
                                 setState(() {
                                   dropdownValue = newValue;
+                                  instituteController.text = newValue;
                                 });
                               }
                             },
@@ -423,13 +434,124 @@ class _BookingState extends State<Booking> {
                           ),
                         ),
                       ),
-                       if (isAdditionalFieldRequired(widget.category, widget.course))
-              Container(
-                width: double.infinity,
-                child: Column(
-                  children: [
-                    if (widget.course == 'Cow management')
-                       DropdownButtonFormField<String>(
+                      SizedBox(
+                        height: 20 * fem,
+                      ),
+                      if (showAdditionalField)
+                        Container(
+                          width: double.infinity,
+                          child: Container(
+                            height: 44 * fem,
+                            child:
+                                //if (widget.course == 'Cow management')
+                                DropdownButtonFormField<String>(
+                              value: dropdownValue1,
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  dropdownValue1 = newValue!;
+                                });
+                              },
+                              items: [
+                                DropdownMenuItem(
+                                  value: 'എത്ര ഉരുക്കളെ പരിപാലിക്കുന്നുണ്ട്?',
+                                  child: Text(
+                                    'എത്ര ഉരുക്കളെ പരിപാലിക്കുന്നുണ്ട്?',
+                                    style: TextStyle(
+                                      color: dropdownValue1 ==
+                                              'എത്ര ഉരുക്കളെ പരിപാലിക്കുന്നുണ്ട്?'
+                                          ? Colors.grey
+                                          : null,
+                                    ),
+                                  ),
+                                ),
+                                DropdownMenuItem(
+                                  value: '0',
+                                  child: Text(
+                                    '0',
+                                    style: TextStyle(
+                                      color: dropdownValue1 == '0'
+                                          ? Colors.black
+                                          : null,
+                                    ),
+                                  ),
+                                ),
+                                DropdownMenuItem(
+                                  value: '1-5',
+                                  child: Text('1-5'),
+                                ),
+                                DropdownMenuItem(
+                                  value: '5-10',
+                                  child: Text(
+                                    '5-10',
+                                    style: TextStyle(
+                                      color: dropdownValue1 == '5-10'
+                                          ? Colors.black
+                                          : null,
+                                    ),
+                                  ),
+                                ),
+                                DropdownMenuItem(
+                                  value: '10-15',
+                                  child: Text(
+                                    '10-15',
+                                    style: TextStyle(
+                                      color: dropdownValue1 == '10-15'
+                                          ? Colors.black
+                                          : null,
+                                    ),
+                                  ),
+                                ),
+                                DropdownMenuItem(
+                                  value: '15-ലും കൂടുതൽ',
+                                  child: Text(
+                                    '15-ലും കൂടുതൽ',
+                                    style: TextStyle(
+                                      color: dropdownValue1 == '15-ലും കൂടുതൽ'
+                                          ? Colors.black
+                                          : null,
+                                    ),
+                                  ),
+                                ),
+                                // Add other DropdownMenuItem widgets
+                              ],
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                //hintText: 'സ്ഥാപനം തിരഞ്ഞെടുക്കുക',
+                                hintStyle: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(4.0)),
+                                ),
+                              ),
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: 15 * fem,
+                                fontWeight: FontWeight.w400,
+                                color: dropdownValue != null
+                                    ? Colors.black
+                                    : Color(0xff252525),
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+                if (widget.course == 'കാടക്കോഴി വളർത്തൽ' ||
+                    widget.course == 'ഓമനപ്പക്ഷി പരിപാലനം' ||
+                    widget.course == 'താറാവ്‌കോഴി  വളർത്തൽ' ||
+                    widget.course == 'മുട്ടക്കോഴി വളർത്തൽ' ||
+                    widget.course == 'ഇറച്ചിക്കോഴി വളർത്തൽ' ||
+                    widget.course == 'ടർക്കി കോഴി വളർത്തൽ')
+                  Container(
+                    width: double.infinity,
+                    child: Container(
+                      height: 44 * fem,
+                      child: DropdownButtonFormField<String>(
                         value: dropdownValue1,
                         onChanged: (String? newValue) {
                           setState(() {
@@ -437,77 +559,91 @@ class _BookingState extends State<Booking> {
                           });
                         },
                         items: [
-                           DropdownMenuItem(
-                            value: '',
-                            child: Text('എത്ര ഉരുക്കളെ പരിപാലിക്കുന്നുണ്ട്?',
-                            style: TextStyle(
-                                    color: dropdownValue1 ==
-                                            'എത്ര ഉരുക്കളെ പരിപാലിക്കുന്നുണ്ട്?'
-                                        ? Colors.grey
-                                        : null,
-                                  ),),
+                          DropdownMenuItem(
+                            value: 'എത്ര ഉരുക്കളെ പരിപാലിക്കുന്നുണ്ട്?',
+                            child: Text(
+                              'എത്ര ഉരുക്കളെ പരിപാലിക്കുന്നുണ്ട്?',
+                              style: TextStyle(
+                                color: dropdownValue1 ==
+                                        'എത്ര ഉരുക്കളെ പരിപാലിക്കുന്നുണ്ട്?'
+                                    ? Colors.grey
+                                    : null,
+                              ),
+                            ),
                           ),
                           DropdownMenuItem(
                             value: '0',
-                            child: Text('0',style: TextStyle(
-                                    color: dropdownValue1 ==
-                                            '0'
-                                        ? Colors.black
-                                        : null,
-                                  ),),
+                            child: Text(
+                              '0',
+                              style: TextStyle(
+                                color:
+                                    dropdownValue1 == '0' ? Colors.black : null,
+                              ),
+                            ),
                           ),
                           DropdownMenuItem(
-                            value: '1-5',
-                            child: Text('1-5'),
+                            value: '1-100',
+                            child: Text('1-100'),
                           ),
                           DropdownMenuItem(
-                            value: '5-10',
-                            child: Text('5-10',
-                            style: TextStyle(
-                                    color: dropdownValue1 ==
-                                            '5-10'
-                                        ? Colors.black
-                                        : null,
-                                  ),),
+                            value: '100-500',
+                            child: Text(
+                              '100-500',
+                              style: TextStyle(
+                                color: dropdownValue1 == '5-10'
+                                    ? Colors.black
+                                    : null,
+                              ),
+                            ),
                           ),
                           DropdownMenuItem(
-                            value: '10-15',
-                            child: Text('10-15',
-                            style: TextStyle(
-                                    color: dropdownValue1 ==
-                                            '10-15'
-                                        ? Colors.black
-                                        : null,
-                                  ),),
+                            value: '500-1000',
+                            child: Text(
+                              '500-1000',
+                              style: TextStyle(
+                                color: dropdownValue1 == '500-1000'
+                                    ? Colors.black
+                                    : null,
+                              ),
+                            ),
                           ),
                           DropdownMenuItem(
-                            value: '15-ലും കൂടുതൽ',
-                            child: Text('15-ലും കൂടുതൽ',
-                            style: TextStyle(
-                                    color: dropdownValue1 ==
-                                            '15-ലും കൂടുതൽ'
-                                        ? Colors.black
-                                        : null,
-                                  ),),
+                            value: '1000-ൽ കൂടുതൽ',
+                            child: Text(
+                              '1000-ൽ കൂടുതൽ',
+                              style: TextStyle(
+                                color: dropdownValue1 == '1000-ൽ കൂടുതൽ'
+                                    ? Colors.black
+                                    : null,
+                              ),
+                            ),
                           ),
                           // Add other DropdownMenuItem widgets
                         ],
                         decoration: InputDecoration(
-                          //labelText: 'Field A',
-                          border: OutlineInputBorder(),
-                        ),),
-                    // if (widget.course == 'ആട് വളർത്തൽ')
-                    //   TextField(
-                    //     // Additional field specific to Hen Breeding
-                    //     // ...
-                    //     decoration: InputDecoration(labelText: 'Field B'),
-                    //   ),
-                  ],
-                ),
-              ),
-                    ],
+                          filled: true,
+                          fillColor: Colors.white,
+                          //hintText: 'സ്ഥാപനം തിരഞ്ഞെടുക്കുക',
+                          hintStyle: TextStyle(
+                            color: Colors.grey,
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(4.0)),
+                          ),
+                        ),
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 15 * fem,
+                          fontWeight: FontWeight.w400,
+                          color: dropdownValue1 != null
+                              ? Colors.black
+                              : Color(0xff252525),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
                 SizedBox(
                   height: 30 * fem,
                 ),
@@ -529,6 +665,7 @@ class _BookingState extends State<Booking> {
                       bookingDetails.category = widget.category;
                       bookingDetails.course = widget.course;
                       bookingDetails.date = formattedDate;
+                      bookingDetails.animCount = animCountController.text;
                       Navigator.push(
                         context,
                         MaterialPageRoute(

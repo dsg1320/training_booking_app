@@ -14,13 +14,14 @@ class BookingDetails {
   String category = ''; // Add category field
   String course = '';
   String date = '';
+  String animCount = '';
   bool completed = false;
   late DatabaseReference reference;
   Future<void> saveDataToDatabase() async {
     reference = FirebaseDatabase.instanceFor(
-        app: Firebase.app(),
-        databaseURL:
-        'https://training-booking-app-default-rtdb.asia-southeast1.firebasedatabase.app/')
+            app: Firebase.app(),
+            databaseURL:
+                'https://training-booking-app-default-rtdb.asia-southeast1.firebasedatabase.app/')
         .ref("Booking");
     String uniqueId = Uuid().v4();
 
@@ -35,7 +36,7 @@ class BookingDetails {
       'phoneNumber': phoneNumber,
       'category': category,
       'course': course,
-      'date' : date,
+      'date': date,
       'completed': false
     };
 

@@ -74,119 +74,124 @@ class Scene5 extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-       child: Container(
-       width: double.infinity,
         child: Container(
-        // coursesZLm (309:1300)
-        padding: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 79*fem),
-        width: double.infinity,
-        decoration: BoxDecoration (
-          color: Color(0xffb1ccac),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              // autogroupojt75a1 (Lu2Wj5NAFhKwVGJocWojT7)
-              margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 53.5*fem),
-              padding: EdgeInsets.fromLTRB(27.5*fem, 58*fem, 0*fem, 25*fem),
-              width: double.infinity,
-              height: 429*fem,
-              decoration: BoxDecoration (
-                color: Color(0xffd9d9d9),
-                borderRadius: BorderRadius.circular(20*fem),
-                image: DecorationImage (
-                  fit: BoxFit.cover,
-                  image: AssetImage (
-                    'assets/rectangle-389-bg-ffw.png',
+          width: double.infinity,
+          child: Container(
+            // coursesZLm (309:1300)
+            padding: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 79 * fem),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Color(0xffb1ccac),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  // autogroupojt75a1 (Lu2Wj5NAFhKwVGJocWojT7)
+                  margin: EdgeInsets.fromLTRB(
+                      0 * fem, 0 * fem, 0 * fem, 53.5 * fem),
+                  padding: EdgeInsets.fromLTRB(
+                      27.5 * fem, 58 * fem, 0 * fem, 25 * fem),
+                  width: double.infinity,
+                  height: 429 * fem,
+                  decoration: BoxDecoration(
+                    color: Color(0xffd9d9d9),
+                    borderRadius: BorderRadius.circular(20 * fem),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage(
+                        'assets/rectangle-389-bg-ffw.png',
+                      ),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x3f000000),
+                        offset: Offset(0 * fem, 4 * fem),
+                        blurRadius: 2 * fem,
+                      ),
+                    ],
                   ),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x3f000000),
-                    offset: Offset(0*fem, 4*fem),
-                    blurRadius: 2*fem,
-                  ),
-                ],
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    // iN5 (309:1309)
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(0*fem, 270*fem, 70.5*fem, 0*fem),
-                      child: Text(
-                        'കോഴ്സ',
-                        textAlign: TextAlign.center,
-                        style: safeGoogleFont (
-                          'Inter',
-                          fontSize: 32*ffem,
-                          fontWeight: FontWeight.w400,
-                          height: 1.2125*ffem/fem,
-                          color: Color(0xffddd7d7),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        // iN5 (309:1309)
+                        child: Container(
+                          margin: EdgeInsets.fromLTRB(
+                              0 * fem, 270 * fem, 70.5 * fem, 0 * fem),
+                          child: Text(
+                            'കോഴ്സ',
+                            textAlign: TextAlign.center,
+                            style: safeGoogleFont(
+                              'Inter',
+                              fontSize: 32 * ffem,
+                              fontWeight: FontWeight.w400,
+                              height: 1.2125 * ffem / fem,
+                              color: Color(0xffddd7d7),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  Container(
-                    // vectorav5 (309:1311)
-                    margin: EdgeInsets.fromLTRB(0*fem, 3*fem, 10.91*fem, 0*fem),
-                    child: TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom (
-                        padding: EdgeInsets.zero,
-                      ),
-                      child: Container(
-                        width: 10.09*fem,
-                        height: 15.63*fem,
-                        child: Image.asset(
-                          'assets/vector-znm.png',
-                          width: 10.09*fem,
-                          height: 15.63*fem,
+                      Container(
+                        // vectorav5 (309:1311)
+                        margin: EdgeInsets.fromLTRB(
+                            0 * fem, 3 * fem, 10.91 * fem, 0 * fem),
+                        child: TextButton(
+                          onPressed: () {},
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                          ),
+                          child: Container(
+                            width: 10.09 * fem,
+                            height: 15.63 * fem,
+                            child: Image.asset(
+                              'assets/vector-znm.png',
+                              width: 10.09 * fem,
+                              height: 15.63 * fem,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  TextButton(
-                    // vectorHZb (309:1310)
-                    onPressed: () {},
-                    style: TextButton.styleFrom (
-                      padding: EdgeInsets.zero,
-                    ),
-                    child: Container(
-                      width: 25*fem,
-                      height: 19.44*fem,
-                      child: Image.asset(
-                        'assets/vector-oAH.png',
-                        width: 25*fem,
-                        height: 19.44*fem,
+                      TextButton(
+                        // vectorHZb (309:1310)
+                        onPressed: () {},
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                        ),
+                        child: Container(
+                          width: 25 * fem,
+                          height: 19.44 * fem,
+                          child: Image.asset(
+                            'assets/vector-oAH.png',
+                            width: 25 * fem,
+                            height: 19.44 * fem,
+                          ),
+                        ),
                       ),
+                    ],
+                  ),
+                ),
+                Container(
+                  // availablecoursesRA1 (309:1308)
+                  margin: EdgeInsets.fromLTRB(
+                      0 * fem, 0 * fem, 140 * fem, 19.5 * fem),
+                  child: Text(
+                    'ലഭ്യമായ കോഴ്‌സുകൾ',
+                    style: safeGoogleFont(
+                      'Inter',
+                      fontSize: 20 * ffem,
+                      fontWeight: FontWeight.w400,
+                      height: 1.2125 * ffem / fem,
+                      color: Color(0xff000000),
                     ),
                   ),
-                ],
-              ),
-            ),
-            Container(
-              // availablecoursesRA1 (309:1308)
-              margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 140*fem, 19.5*fem),
-              child: Text(
-                'Available Courses:',
-                style: safeGoogleFont (
-                  'Inter',
-                  fontSize: 20*ffem,
-                  fontWeight: FontWeight.w400,
-                  height: 1.2125*ffem/fem,
-                  color: Color(0xff000000),
                 ),
-              ),
+                CourseListWidget('Course')
+              ],
             ),
-            CourseListWidget('Course')
-          ],
+          ),
         ),
       ),
-    ),
-    ),
     );
   }
 }

@@ -37,8 +37,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   google_fonts: ^6.1.0
-  firebase_core: ^2.16.0
-  firebase_auth: ^4.10.0
+  firebase_core: ^2.8.0 #old 2.16.0
+  firebase_auth: ^4.3.0  #old 4.10.0
   cloud_firestore: ^4.9.2
   firebase_database: ^10.2.6
   pinput: ^3.0.1
@@ -51,7 +51,7 @@ dependencies:
 
 dev_dependencies:
   flutter_test:
-    sdk: flutter
+    sdk: flutter 
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
