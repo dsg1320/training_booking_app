@@ -148,23 +148,6 @@ class _MyVerifyState extends State<MyVerify> {
                         widget.bookingDetails.phoneNumber =
                             auth.currentUser?.phoneNumber ?? '';
                         await widget.bookingDetails.saveDataToDatabase();
-
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content:
-                                Text('Thank you!'), // Display success message
-                          ),
-                        );
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => MyApp()));
-                      } catch (e) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content:
-                                Text('Wrong OTP!'), // Display error message
-                          ),
-                        );
-
                         LocalNotifications.showSimpleNotification(
                             title: "Your Booking is Confirmed!",
                             body:

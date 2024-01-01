@@ -51,7 +51,22 @@ class _BookingState extends State<Booking> {
   late DatabaseReference dbRef;
 
   bool showAdditionalField = false;
+<<<<<<< HEAD
 
+=======
+  List<String> instituteNames = [
+    'LMTC കുടപ്പനക്കുന്ന്,തിരുവനന്തപുരം',
+    'LMTC കൊട്ടിയം, കൊല്ലം',
+    'LMTC തലയോലപ്പറമ്പ്,കോട്ടയം',
+    'LMTC വാഗമൺ, ഇടുക്കി',
+    'LMTC ആലുവ എറണാകുളം',
+    'LMTC മലമ്പുഴ, പാലക്കാട്',
+    'LMTC ആദവനാട്, മലപ്പുറം',
+    'LMTC മുണ്ടയാട്, കണ്ണൂർ',
+    'LMTC സുൽത്താൻബത്തേരി, വയനാട്',
+    // Add other institute names as needed
+  ];
+>>>>>>> 4ea71a449b6e514f7ea94e82b37ae2c8f62d474f
   String? selectedInstitute;
   @override
   void initState() {
@@ -275,6 +290,7 @@ class _BookingState extends State<Booking> {
                           height: 44 * fem,
                           //child: // State variable to hold selected value
 
+<<<<<<< HEAD
                           // DropdownButtonFormField<String>(
                           //   value: selectedInstitute,
                           //   decoration: InputDecoration(
@@ -406,6 +422,32 @@ class _BookingState extends State<Booking> {
                                     : Color(0xff252525),
                               ),
                             ),
+=======
+                          DropdownButtonFormField<String>(
+                            value: selectedInstitute,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Institute Name',
+                              hintText: 'Select institute name',
+                            ),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                selectedInstitute = newValue;
+                              });
+                            },
+                            items: instituteNames.map((String institute) {
+                              return DropdownMenuItem<String>(
+                                value: institute,
+                                child: Text(institute),
+                              );
+                            }).toList(),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please select an institute';
+                              }
+                              return null;
+                            },
+>>>>>>> 4ea71a449b6e514f7ea94e82b37ae2c8f62d474f
                           ),
                         ),
                     ],
