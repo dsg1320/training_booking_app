@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:training_booking_app/Notificatio.dart';
 import 'package:training_booking_app/home_page.dart';
+import 'package:training_booking_app/localnotification.dart';
 import 'package:training_booking_app/main.dart';
 import 'package:training_booking_app/mobileVerify.dart';
 import 'package:training_booking_app/utils.dart';
@@ -24,6 +26,22 @@ class MyVerify extends StatefulWidget {
 
 class _MyVerifyState extends State<MyVerify> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+  @override
+  void initState() {
+    listenToNotifications();
+    super.initState();
+  }
+
+//  to listen to any notification clicked or not
+  listenToNotifications() {
+    print("Listening to notification");
+    LocalNotifications.onClickNotification.stream.listen((event) {
+      print(event);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AnotherPage(payload: event)));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
@@ -130,6 +148,7 @@ class _MyVerifyState extends State<MyVerify> {
                         widget.bookingDetails.phoneNumber =
                             auth.currentUser?.phoneNumber ?? '';
                         await widget.bookingDetails.saveDataToDatabase();
+
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content:
@@ -145,6 +164,17 @@ class _MyVerifyState extends State<MyVerify> {
                                 Text('Wrong OTP!'), // Display error message
                           ),
                         );
+
+                        LocalNotifications.showSimpleNotification(
+                            title: "Your Booking is Confirmed!",
+                            body:
+                                "Thank you for booking our training.Check your ID and details.",
+                            payload:
+                                "You have booked for Course: ${widget.bookingDetails.course}"
+                                "Location: ${widget.bookingDetails.institute}");
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MyApp()));
+                      } catch (e) {
                         print("wrong otp!");
                       }
                     },

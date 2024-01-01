@@ -3,18 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pw;
-import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:google_fonts/google_fonts.dart' as gf;
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-
-
+import 'package:training_booking_app/Admin/invoice_service.dart';
+import 'package:syncfusion_flutter_pdf/pdf.dart';
+import 'package:training_booking_app/Admin/mobile.dart';
 
 class AdminPage extends StatefulWidget {
   @override
@@ -31,6 +22,8 @@ class _AdminPageState extends State<AdminPage> {
   List<String> categoryNames = [];
   List<Map<String, dynamic>> backupBookingList = [];
   late StreamSubscription<DatabaseEvent> _subscription;
+  final PdfInvoiceService service = PdfInvoiceService();
+  int number=0;
 
   @override
   void initState() {
@@ -265,11 +258,7 @@ class _AdminPageState extends State<AdminPage> {
               child: Text('View Statistics'),
             ),
             ElevatedButton(
-              onPressed: () {
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green,
-              ),
+              onPressed: (){_createPdf(bookingList);},
               child: Text('Export'),
             ),
             ElevatedButton(
@@ -297,13 +286,55 @@ class _AdminPageState extends State<AdminPage> {
       ),
     );
   }
-  pw.Widget _buildTableCell(String text, {pw.TextStyle? style}) {
-    return pw.Container(
-      padding: pw.EdgeInsets.all(8),
-      alignment: pw.Alignment.center,
-      child: pw.Text(text, style: style),
+  Future<void> _createPdf(List<Map<String, dynamic>> bookingList) async {
+    // Create a new PDF document
+    PdfDocument document = PdfDocument();
+
+    // Add a new page to the document
+    final page = document.pages.add();
+
+    // Define headers for the table
+    List<String> headers = [
+      'name',
+      'address',
+      'phoneNumber',
+      'date'
+    ];
+
+    // Create and initialize the PDF grid
+    PdfGrid grid = PdfGrid();
+    grid.columns.add(count: headers.length);
+
+    // Add headers to the grid
+    for (var header in headers) {
+      grid.headers.add(1);
+      grid.headers[0].cells[headers.indexOf(header)].value = header;
+    }
+
+    // Add data to the grid from bookingList
+    for (var bookingData in bookingList) {
+      PdfGridRow gridRow = grid.rows.add();
+      for (var header in headers) {
+        gridRow.cells[headers.indexOf(header)].value = bookingData[header];
+      }
+    }
+
+    // Draw the grid on the PDF page
+    PdfLayoutResult? gridResult = grid.draw(
+      page: page,
+      bounds: Rect.fromLTWH(0, 0, page.getClientSize().width, 0),
     );
+
+    // Save the document as bytes
+    List<int> bytes = await document.save();
+
+    // Dispose the document
+    document.dispose();
+
+    // Save and launch the PDF file
+    saveAndLaunchFile(bytes, 'Output.pdf');
   }
+
   void saveMarkedRows() {
     int countCompleted = 0;
     // Logic to save marked rows as completed

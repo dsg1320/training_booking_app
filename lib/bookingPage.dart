@@ -52,6 +52,7 @@ class _BookingState extends State<Booking> {
 
   bool showAdditionalField = false;
 
+  String? selectedInstitute;
   @override
   void initState() {
     super.initState();
@@ -272,166 +273,35 @@ class _BookingState extends State<Booking> {
                         width: double.infinity,
                         child: Container(
                           height: 44 * fem,
-                          child: // State variable to hold selected value
+                          //child: // State variable to hold selected value
 
-                              DropdownButtonFormField<String>(
-                            value: dropdownValue,
-                            onChanged: (String? newValue) {
-                              if (newValue != null) {
-                                setState(() {
-                                  dropdownValue = newValue;
-                                  instituteController.text = newValue;
-                                });
-                              }
-                            },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please select an institution';
-                              }
-                              return null; // Return null if the value is valid
-                            },
-                            items: [
-                              DropdownMenuItem(
-                                value: 'സ്ഥാപനം തിരഞ്ഞെടുക്കുക',
-                                child: Text(
-                                  'സ്ഥാപനം തിരഞ്ഞെടുക്കുക',
-                                  style: TextStyle(
-                                    color: Colors
-                                        .grey, // Set the hint text color to grey
-                                  ),
-                                ),
-                              ),
-                              DropdownMenuItem(
-                                value: 'LMTC കുടപ്പനക്കുന്ന്,തിരുവനന്തപുരം',
-                                child: Text(
-                                  'LMTC കുടപ്പനക്കുന്ന്,തിരുവനന്തപുരം',
-                                  style: TextStyle(
-                                    color: dropdownValue ==
-                                            'LMTC കുടപ്പനക്കുന്ന്,തിരുവനന്തപുരം'
-                                        ? Colors.black
-                                        : null,
-                                  ),
-                                ),
-                              ),
-                              DropdownMenuItem(
-                                value: 'LMTC കൊട്ടിയം, കൊല്ലം',
-                                child: Text(
-                                  'LMTC കൊട്ടിയം, കൊല്ലം',
-                                  style: TextStyle(
-                                    color:
-                                        dropdownValue == 'LMTC കൊട്ടിയം, കൊല്ലം'
-                                            ? Colors.black
-                                            : null,
-                                  ),
-                                ),
-                              ),
-                              DropdownMenuItem(
-                                value: 'LMTC തലയോലപ്പറമ്പ്,കോട്ടയം',
-                                child: Text(
-                                  'LMTC തലയോലപ്പറമ്പ്,കോട്ടയം',
-                                  style: TextStyle(
-                                    color: dropdownValue ==
-                                            'LMTC തലയോലപ്പറമ്പ്,കോട്ടയം'
-                                        ? Colors.black
-                                        : null,
-                                  ),
-                                ),
-                              ),
-                              DropdownMenuItem(
-                                value: 'LMTC വാഗമൺ, ഇടുക്കി',
-                                child: Text(
-                                  'LMTC വാഗമൺ, ഇടുക്കി',
-                                  style: TextStyle(
-                                    color:
-                                        dropdownValue == 'LMTC വാഗമൺ, ഇടുക്കി'
-                                            ? Colors.black
-                                            : null,
-                                  ),
-                                ),
-                              ),
-                              DropdownMenuItem(
-                                value: 'LMTC ആലുവ എറണാകുളം',
-                                child: Text(
-                                  'LMTC ആലുവ എറണാകുളം',
-                                  style: TextStyle(
-                                    color: dropdownValue == 'LMTC ആലുവ എറണാകുളം'
-                                        ? Colors.black
-                                        : null,
-                                  ),
-                                ),
-                              ),
-                              DropdownMenuItem(
-                                value: 'LMTC മലമ്പുഴ, പാലക്കാട്',
-                                child: Text(
-                                  'LMTC മലമ്പുഴ, പാലക്കാട്',
-                                  style: TextStyle(
-                                    color: dropdownValue ==
-                                            'LMTC മലമ്പുഴ, പാലക്കാട്'
-                                        ? Colors.black
-                                        : null,
-                                  ),
-                                ),
-                              ),
-                              DropdownMenuItem(
-                                value: 'LMTC ആദവനാട്, മലപ്പുറം',
-                                child: Text(
-                                  'LMTC ആദവനാട്, മലപ്പുറം',
-                                  style: TextStyle(
-                                    color: dropdownValue ==
-                                            'LMTC ആദവനാട്, മലപ്പുറം'
-                                        ? Colors.black
-                                        : null,
-                                  ),
-                                ),
-                              ),
-                              DropdownMenuItem(
-                                value: 'LMTC മുണ്ടയാട്, കണ്ണൂർ',
-                                child: Text(
-                                  'LMTC മുണ്ടയാട്, കണ്ണൂർ',
-                                  style: TextStyle(
-                                    color: dropdownValue ==
-                                            'LMTC മുണ്ടയാട്, കണ്ണൂർ'
-                                        ? Colors.black
-                                        : null,
-                                  ),
-                                ),
-                              ),
-                              DropdownMenuItem(
-                                value: 'LMTC സുൽത്താൻബത്തേരി, വയനാട്',
-                                child: Text(
-                                  'LMTC സുൽത്താൻബത്തേരി, വയനാട്',
-                                  style: TextStyle(
-                                    color: dropdownValue ==
-                                            'LMTC സുൽത്താൻബത്തേരി, വയനാട്'
-                                        ? Colors.black
-                                        : null,
-                                  ),
-                                ),
-                              ),
-                              // Add other DropdownMenuItem widgets for remaining institutions
-                            ],
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              //hintText: 'സ്ഥാപനം തിരഞ്ഞെടുക്കുക',
-                              hintStyle: TextStyle(
-                                color: Colors.grey,
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(4.0)),
-                              ),
-                            ),
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 15 * fem,
-                              fontWeight: FontWeight.w400,
-                              color: dropdownValue != null
-                                  ? Colors.black
-                                  : Color(0xff252525),
-                            ),
-                          ),
+                          // DropdownButtonFormField<String>(
+                          //   value: selectedInstitute,
+                          //   decoration: InputDecoration(
+                          //     border: OutlineInputBorder(),
+                          //     labelText: 'Institute Name',
+                          //     hintText: 'Select institute name',
+                          //   ),
+                          //   onChanged: (String? newValue) {
+
+                          //     setState(() {
+                          //       selectedInstitute = newValue;
+                          //     });
+
+                          //   },
+                          //   items: instituteNames.map((String institute) {
+                          //     return DropdownMenuItem<String>(
+                          //       value: institute,
+                          //       child: Text(institute),
+                          //     );
+                          //   }).toList(),
+                          //   validator: (value) {
+                          //     if (value == null || value.isEmpty) {
+                          //       return 'Please select an institute';
+                          //     }
+                          //     return null;
+                          //   },
+                          // ),
                         ),
                       ),
                       SizedBox(
@@ -661,7 +531,7 @@ class _BookingState extends State<Booking> {
                       bookingDetails.gender = genderController.text;
                       bookingDetails.email = mailController.text;
                       bookingDetails.address = addressController.text;
-                      bookingDetails.institute = instituteController.text;
+                      bookingDetails.institute = selectedInstitute!;
                       bookingDetails.category = widget.category;
                       bookingDetails.course = widget.course;
                       bookingDetails.date = formattedDate;

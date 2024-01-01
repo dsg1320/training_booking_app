@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:training_booking_app/institutesignin.dart';
 import 'package:training_booking_app/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // import 'model.dart';
 
@@ -311,6 +312,16 @@ class _RegisterState extends State<Register> {
                                 });
                                 signUp(emailController.text,
                                     passwordController.text, rool);
+                                final Uri emailUri = Uri(
+                                  scheme: 'mailto',
+                                  path: emailController.text,
+                                  queryParameters: {
+                                    'subject': 'Your Institute has been registered!',
+                                    'body':
+                                    'Heres your username and passwrd:'
+                                  },
+                                );
+                                launch(emailUri.toString());
                               },
                               child: Text(
                                 "Register",

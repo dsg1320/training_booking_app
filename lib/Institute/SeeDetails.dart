@@ -7,8 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 
 
-
-
 class InstitutePage extends StatefulWidget {
   @override
   _InstitutePageState createState() => _InstitutePageState();
