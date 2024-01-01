@@ -6,6 +6,8 @@ list(APPEND FLUTTER_PLUGIN_LIST
   cloud_firestore
   firebase_auth
   firebase_core
+  open_document
+  share_plus
   smart_auth
   url_launcher_windows
 )

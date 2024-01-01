@@ -19,6 +19,7 @@ class Admin extends StatelessWidget {
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
     return Scaffold(
+
       bottomNavigationBar: Container(
         height: 60,
         child: BottomNavigationBar(
@@ -89,6 +90,7 @@ class Admin extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
+
               // autogroup4rzdv5f (5CSKdCAmQYBMJRsDrP4rZd)
               // padding: EdgeInsets.fromLTRB(165.99*fem, 240.66*fem, 119.56*fem, 181.1*fem),
               // width: double.infinity,
@@ -101,9 +103,9 @@ class Admin extends StatelessWidget {
 
                   image: AssetImage (
                     'assets/rectangle-388-bg.png',
-                    
+
                   ),
-                ), 
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -111,25 +113,11 @@ class Admin extends StatelessWidget {
                   Container(
                     // vector8Bj (103:1564)
                     margin: EdgeInsets.fromLTRB(295*fem, 0*fem, 0*fem, 65.56*fem),
-                    child: TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom (
-                        padding: EdgeInsets.zero,
-                      ),
-                      child: Container(
-                        width: 25*fem,
-                        height: 19.44*fem,
-                        child: Image.asset(
-                          'assets/vector-JVw.png',
-                          width: 25*fem,
-                          height: 19.44*fem,
-                        ),
-                      ),
-                    ),
+
                   ),
                   Container(
                     // welcomeQ9F (103:1554)
-                    margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 21*fem, 0*fem),
+                    margin: EdgeInsets.fromLTRB(0*fem, 60*fem, 21*fem, 0*fem),
                     child: Text(
                       'Welcome',
                       style: safeGoogleFont (
@@ -139,7 +127,7 @@ class Admin extends StatelessWidget {
                         height: 1.1975*ffem/fem,
                         letterSpacing: 1.28*fem,
                         color: Color(0xffffffff),
-                        
+
                       ),
                     ),
                   ),
@@ -147,6 +135,7 @@ class Admin extends StatelessWidget {
               ),
             ),
             Container(
+
               // autogroupkbbuVwP (5CSKjwUXPi1eMsS9dTKBbu)
               padding: EdgeInsets.fromLTRB(8*fem, 65.9*fem, 8*fem, 17*fem),
               width: double.infinity,
@@ -154,220 +143,172 @@ class Admin extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
+
+
                     // group758992wK (223:1344)
-                    margin: EdgeInsets.fromLTRB(17*fem, 0*fem, 10*fem, 170*fem),
+                    margin: EdgeInsets.fromLTRB(17*fem, 0*fem, 0*fem, 170*fem),
                     width: double.infinity,
                     height: 126*fem,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                         
-                    
-                          Container(
-                            // autogroup3sgwX9K (5CSKymQpVt8xrQMJsn3SGw)
-                            padding: EdgeInsets.fromLTRB(12.5*fem, 20*fem, 12.5*fem, 20*fem),
-                            width: 137*fem,
-                            height: double.infinity,
-                            decoration: BoxDecoration (
-                              color: Color(0xfffbf9f9),
-                              borderRadius: BorderRadius.circular(10*fem),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0x3073c268),
-                                  offset: Offset(0*fem, 0.0905760005*fem),
-                                  blurRadius: 1.8115199804*fem,
-                                ),
-                                BoxShadow(
-                                  color: Color(0x3873c268),
-                                  offset: Offset(0*fem, 0.1576435119*fem),
-                                  blurRadius: 3.1528701782*fem,
-                                ),
-                               
-                                BoxShadow(
-                                  color: Color(0x5473c268),
-                                  offset: Offset(0*fem, 2*fem),
-                                  blurRadius: 40*fem,
-                                ),
-                              ],
-                            ),
-                            child:InkWell(
-                              onTap: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => CourseFormScreen()));
-                              },
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    // vectorrau (103:1561)
-                                    margin: EdgeInsets.fromLTRB(1*fem, 0*fem, 0*fem, 14*fem),
-                                    width: 40*fem,
-                                    height: 15*fem,
-                                    child: Image.asset(
-                                      'assets/vector-C8H.png',
-                                      width: 45*fem,
-                                      height: 43*fem,
+                      child: Container(
+
+                        child: Row(
+
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+
+
+                            Container(
+
+                              // autogroup3sgwX9K (5CSKymQpVt8xrQMJsn3SGw)
+                              padding: EdgeInsets.fromLTRB(12.5*fem, 20*fem, 12.5*fem, 20*fem),
+                              width: 137*fem,
+                              height: double.infinity,
+                              decoration: BoxDecoration (
+                                color: Color(0xfffbf9f9),
+                                borderRadius: BorderRadius.circular(10*fem),
+
+                              ),
+                              child:InkWell(
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => CourseFormScreen()));
+                                },
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      // vectorrau (103:1561)
+                                      margin: EdgeInsets.fromLTRB(1*fem, 0*fem, 0*fem, 14*fem),
+                                      width: 40*fem,
+                                      height: 15*fem,
+                                      child: Image.asset(
+                                        'assets/vector-C8H.png',
+                                        width: 45*fem,
+                                        height: 43*fem,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    // seedetailszBK (103:1563)
-                                    'Add courses',
-                                    textAlign: TextAlign.center,
-                                    style: safeGoogleFont (
-                                      'Istok Web',
-                                      fontSize: 19*ffem,
-                                      fontWeight: FontWeight.w700,
-                                      height: 1.44*ffem/fem,
-                                      letterSpacing: 0.4*fem,
-                                      color: Color(0xff73c268),
+                                    Text(
+                                      // seedetailszBK (103:1563)
+                                      'Add courses',
+                                      textAlign: TextAlign.center,
+                                      style: safeGoogleFont (
+                                        'Istok Web',
+                                        fontSize: 19*ffem,
+                                        fontWeight: FontWeight.w700,
+                                        height: 1.44*ffem/fem,
+                                        letterSpacing: 0.4*fem,
+                                        color: Color(0xff73c268),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 43.0,
-                          ),
-                          Container(
-                            // autogroup3sgwX9K (5CSKymQpVt8xrQMJsn3SGw)
-                            padding: EdgeInsets.fromLTRB(12.5*fem, 20*fem, 12.5*fem, 20*fem),
-                            width: 137*fem,
-                            height: double.infinity,
-                            decoration: BoxDecoration (
-                              color: Color(0xfffbf9f9),
-                              borderRadius: BorderRadius.circular(10*fem),
-                              boxShadow: [
-                                // BoxShadow(
-                                //   color: Color(0x2473c268),
-                                //   offset: Offset(0*fem, 0.0398648418*fem),
-                                //   blurRadius: 0.7972968817*fem,
-                                // ),
-                                BoxShadow(
-                                  color: Color(0x3073c268),
-                                  offset: Offset(0*fem, 0.0905760005*fem),
-                                  blurRadius: 1.8115199804*fem,
-                                ),
-                                BoxShadow(
-                                  color: Color(0x3873c268),
-                                  offset: Offset(0*fem, 0.1576435119*fem),
-                                  blurRadius: 3.1528701782*fem,
-                                ),
-                                // BoxShadow(
-                                
-                                BoxShadow(
-                                  color: Color(0x5473c268),
-                                  offset: Offset(0*fem, 2*fem),
-                                  blurRadius: 40*fem,
-                                ),
-                              ],
+                            SizedBox(
+                              width: 23.0,
                             ),
-                            child:InkWell(
-                              onTap: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
-                              },
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    // vectorrau (103:1561)
-                                    margin: EdgeInsets.fromLTRB(1*fem, 0*fem, 0*fem, 14*fem),
-                                    width: 40*fem,
-                                    height: 15*fem,
-                                    child: Image.asset(
-                                      'assets/register.png',
-                                      width: 32*fem,
-                                      height: 43*fem,
+                            Container(
+                              // autogroup3sgwX9K (5CSKymQpVt8xrQMJsn3SGw)
+                              padding: EdgeInsets.fromLTRB(12.5*fem, 20*fem, 12.5*fem, 20*fem),
+                              width: 137*fem,
+                              height: double.infinity,
+                              decoration: BoxDecoration (
+                                color: Color(0xfffbf9f9),
+                                borderRadius: BorderRadius.circular(10*fem),
+
+
+                              ),
+                              child:InkWell(
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
+                                },
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      // vectorrau (103:1561)
+                                      margin: EdgeInsets.fromLTRB(1*fem, 0*fem, 0*fem, 14*fem),
+                                      width: 40*fem,
+                                      height: 15*fem,
+                                      child: Image.asset(
+                                        'assets/register.png',
+                                        width: 32*fem,
+                                        height: 43*fem,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    // seedetailszBK (103:1563)
-                                    'Register new institutions',
-                                    textAlign: TextAlign.center,
-                                    style: safeGoogleFont (
-                                      'Istok Web',
-                                      fontSize: 16.7*ffem,
-                                      fontWeight: FontWeight.w700,
-                                      height: 1.44*ffem/fem,
-                                      letterSpacing: 0.4*fem,
-                                      color: Color(0xff73c268),
+                                    Text(
+                                      // seedetailszBK (103:1563)
+                                      'Register new institutions',
+                                      textAlign: TextAlign.center,
+                                      style: safeGoogleFont (
+                                        'Istok Web',
+                                        fontSize: 14.7*ffem,
+                                        fontWeight: FontWeight.w700,
+                                        height: 1.84*ffem/fem,
+                                        letterSpacing: 0.4*fem,
+                                        color: Color(0xff73c268),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 43.0,
-                          ),
-                           Container(
-                            // autogroup3sgwX9K (5CSKymQpVt8xrQMJsn3SGw)
-                            padding: EdgeInsets.fromLTRB(12.5*fem, 20*fem, 12.5*fem, 20*fem),
-                            width: 137*fem,
-                            height: double.infinity,
-                            decoration: BoxDecoration (
-                              color: Color(0xfffbf9f9),
-                              borderRadius: BorderRadius.circular(10*fem),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0x3073c268),
-                                  offset: Offset(0*fem, 0.0905760005*fem),
-                                  blurRadius: 1.8115199804*fem,
-                                ),
-                                BoxShadow(
-                                  color: Color(0x3873c268),
-                                  offset: Offset(0*fem, 0.1576435119*fem),
-                                  blurRadius: 3.1528701782*fem,
-                                ),
-                               
-                                BoxShadow(
-                                  color: Color(0x5473c268),
-                                  offset: Offset(0*fem, 2*fem),
-                                  blurRadius: 40*fem,
-                                ),
-                              ],
+                            SizedBox(
+                              width: 23.0,
                             ),
-                            child:InkWell(
-                              onTap: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => Scene1()));
-                              },
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    // vectorrau (103:1561)
-                                    margin: EdgeInsets.fromLTRB(1*fem, 0*fem, 0*fem, 14*fem),
-                                    width: 40*fem,
-                                    height: 15*fem,
-                                    child: Image.asset(
-                                      'assets/vector-C8H.png',
-                                      width: 45*fem,
-                                      height: 43*fem,
+                             Container(
+                              // autogroup3sgwX9K (5CSKymQpVt8xrQMJsn3SGw)
+                              padding: EdgeInsets.fromLTRB(12.5*fem, 20*fem, 12.5*fem, 20*fem),
+                              width: 137*fem,
+                              height: double.infinity,
+                              decoration: BoxDecoration (
+                                color: Color(0xfffbf9f9),
+                                borderRadius: BorderRadius.circular(10*fem),
+
+
+                              ),
+                              child:InkWell(
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Scene1()));
+                                },
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      // vectorrau (103:1561)
+                                      margin: EdgeInsets.fromLTRB(1*fem, 0*fem, 0*fem, 14*fem),
+                                      width: 40*fem,
+                                      height: 15*fem,
+                                      child: Image.asset(
+                                        'assets/vector-C8H.png',
+                                        width: 45*fem,
+                                        height: 43*fem,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    // seedetailszBK (103:1563)
-                                    'Add Participants',
-                                    textAlign: TextAlign.center,
-                                    style: safeGoogleFont (
-                                      'Istok Web',
-                                      fontSize: 19*ffem,
-                                      fontWeight: FontWeight.w700,
-                                      height: 1.44*ffem/fem,
-                                      letterSpacing: 0.4*fem,
-                                      color: Color(0xff73c268),
+                                    Text(
+                                      // seedetailszBK (103:1563)
+                                      'Add Participants',
+                                      textAlign: TextAlign.center,
+                                      style: safeGoogleFont (
+                                        'Istok Web',
+                                        fontSize: 17*ffem,
+                                        fontWeight: FontWeight.w700,
+                                        height: 1.44*ffem/fem,
+                                        letterSpacing: 0.4*fem,
+                                        color: Color(0xff73c268),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                 
+
                 ],
               ),
             ),

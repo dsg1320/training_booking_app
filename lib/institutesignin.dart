@@ -29,7 +29,7 @@ class _LoginpageState extends State<Loginpage>{
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
     return Scaffold(
-        
+        backgroundColor: Color(0xffa4e299),
       body: SingleChildScrollView(
        child: Container(
        width: double.infinity,
@@ -173,10 +173,11 @@ class _LoginpageState extends State<Loginpage>{
                ),
              ),
              Container(
+
                height: 50,
                width: 250,
                decoration: BoxDecoration(
-                   color: Colors.green, borderRadius: BorderRadius.circular(20)),
+                   color: Colors.green, borderRadius: BorderRadius.circular(5)),
                child: TextButton(
                  onPressed: () {
                    setState(() {

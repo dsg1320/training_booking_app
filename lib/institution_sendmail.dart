@@ -4,8 +4,69 @@ import 'dart:ui';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:training_booking_app/main.dart';
 import 'package:training_booking_app/utils.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
 
-class Scene4 extends StatelessWidget {
+class Scene4 extends StatefulWidget {
+  @override
+  _Scene4Page createState() => _Scene4Page();
+}
+class _Scene4Page extends State<Scene4> {
+  late DatabaseReference dbRef;
+  late StreamSubscription<DatabaseEvent> _subscription;
+  List<Map<String, dynamic>> mailList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    dbRef = FirebaseDatabase.instanceFor(
+      app: Firebase.app(),
+      databaseURL: 'https://training-booking-app-default-rtdb.asia-southeast1.firebasedatabase.app/',
+    ).ref('Booking');
+    _subscription = dbRef.onValue.listen((event) {
+      if (event.snapshot.value != null){
+        DataSnapshot snapshot = event.snapshot;
+        fetchData();
+      }
+    });// Call method to fetch data initially
+  }
+
+  @override
+  void dispose() {
+    _subscription?.cancel(); // Cancel the listener when the widget is disposed of
+    super.dispose();
+  }
+
+  void fetchData() {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user != null){
+      String loggedInInstituteName = user.displayName ?? '';
+      print(loggedInInstituteName);
+      dbRef.onValue.listen((DatabaseEvent event) {
+        if (event.snapshot.value != null) {
+          Map<dynamic, dynamic> values =
+          event.snapshot.value as Map<dynamic, dynamic>;
+
+          mailList.clear(); // Clear existing list before updating
+
+          values.forEach((key, value) {
+            if (value['institute'] == loggedInInstituteName){
+              mailList.add({
+                'email': value['email'],
+              });
+
+            }
+          });
+
+          // Set state after fetching data to trigger rebuild with fetched data
+          setState(() {});
+        }
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     double baseWidth = 360;
@@ -51,15 +112,6 @@ class Scene4 extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Image.asset(
-                'assets/vector-qTX.png',
-                width: 30,
-                height: 30,
-                color: Color.fromRGBO(77, 119, 34, 1),
-              ),
-              label: 'Notifications',
-            ),
-            BottomNavigationBarItem(
-              icon: Image.asset(
                 'assets/vector-Vc5.png',
                 width: 30,
                 height: 30,
@@ -102,7 +154,25 @@ class Scene4 extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Column(
+              child: InkWell(
+                onTap: () async{
+                  List<String> emailAddresses = mailList.map((map) => map['email'] as String).toList();
+
+                  // Create a comma-separated string of email addresses
+                  String emailList = emailAddresses.join(',');
+                  final Uri emailUri = Uri(
+                    scheme: 'mailto',
+                    path: emailList,
+                    queryParameters: {
+                      'subject': 'Here is a Remainder',
+                      'body':
+                          'Get ready for your training!'
+                    },
+                  );
+                 launch(emailUri.toString());
+
+                },
+               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Center(
@@ -139,6 +209,7 @@ class Scene4 extends StatelessWidget {
                 ],
               ),
             ),
+            ),
             Container(
               // rectangle390pHP (218:1257)
               padding: EdgeInsets.fromLTRB(23.5*fem, 23*fem, 25.5*fem, 15*fem),
@@ -155,6 +226,24 @@ class Scene4 extends StatelessWidget {
                   ),
                 ],
               ),
+              child: InkWell(
+                onTap: () async{
+                  List<String> emailAddresses = mailList.map((map) => map['email'] as String).toList();
+
+                  // Create a comma-separated string of email addresses
+                  String emailList = emailAddresses.join(',');
+                  final Uri emailUri = Uri(
+                    scheme: 'mailto',
+                    path: emailList,
+                    queryParameters: {
+                      'subject': 'Here is a Remainder',
+                      'body':
+                      'Get ready for your training!'
+                    },
+                  );
+                  launch(emailUri.toString());
+
+                },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -191,6 +280,7 @@ class Scene4 extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
             ),
           ],
         ),
