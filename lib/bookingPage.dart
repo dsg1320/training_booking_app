@@ -50,10 +50,6 @@ class _BookingState extends State<Booking> {
 
   late DatabaseReference dbRef;
 
-  bool showAdditionalField = false;
-<<<<<<< HEAD
-
-=======
   List<String> instituteNames = [
     'LMTC കുടപ്പനക്കുന്ന്,തിരുവനന്തപുരം',
     'LMTC കൊട്ടിയം, കൊല്ലം',
@@ -66,7 +62,7 @@ class _BookingState extends State<Booking> {
     'LMTC സുൽത്താൻബത്തേരി, വയനാട്',
     // Add other institute names as needed
   ];
->>>>>>> 4ea71a449b6e514f7ea94e82b37ae2c8f62d474f
+  bool showAdditionalField = false;
   String? selectedInstitute;
   @override
   void initState() {
@@ -85,7 +81,7 @@ class _BookingState extends State<Booking> {
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    print(widget.course);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -102,7 +98,6 @@ class _BookingState extends State<Booking> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  // 3vZ (72:35)
                   margin: EdgeInsets.fromLTRB(
                       0 * fem, 0 * fem, 147 * fem, 70.5 * fem),
                   child: Text(
@@ -288,36 +283,33 @@ class _BookingState extends State<Booking> {
                         width: double.infinity,
                         child: Container(
                           height: 44 * fem,
-                          //child: // State variable to hold selected value
+                          child: // State variable to hold selected value
 
-<<<<<<< HEAD
-                          // DropdownButtonFormField<String>(
-                          //   value: selectedInstitute,
-                          //   decoration: InputDecoration(
-                          //     border: OutlineInputBorder(),
-                          //     labelText: 'Institute Name',
-                          //     hintText: 'Select institute name',
-                          //   ),
-                          //   onChanged: (String? newValue) {
-
-                          //     setState(() {
-                          //       selectedInstitute = newValue;
-                          //     });
-
-                          //   },
-                          //   items: instituteNames.map((String institute) {
-                          //     return DropdownMenuItem<String>(
-                          //       value: institute,
-                          //       child: Text(institute),
-                          //     );
-                          //   }).toList(),
-                          //   validator: (value) {
-                          //     if (value == null || value.isEmpty) {
-                          //       return 'Please select an institute';
-                          //     }
-                          //     return null;
-                          //   },
-                          // ),
+                              DropdownButtonFormField<String>(
+                            value: selectedInstitute,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Institute Name',
+                              hintText: 'Select institute name',
+                            ),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                selectedInstitute = newValue;
+                              });
+                            },
+                            items: instituteNames.map((String institute) {
+                              return DropdownMenuItem<String>(
+                                value: institute,
+                                child: Text(institute),
+                              );
+                            }).toList(),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please select an institute';
+                              }
+                              return null;
+                            },
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -422,32 +414,6 @@ class _BookingState extends State<Booking> {
                                     : Color(0xff252525),
                               ),
                             ),
-=======
-                          DropdownButtonFormField<String>(
-                            value: selectedInstitute,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Institute Name',
-                              hintText: 'Select institute name',
-                            ),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                selectedInstitute = newValue;
-                              });
-                            },
-                            items: instituteNames.map((String institute) {
-                              return DropdownMenuItem<String>(
-                                value: institute,
-                                child: Text(institute),
-                              );
-                            }).toList(),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please select an institute';
-                              }
-                              return null;
-                            },
->>>>>>> 4ea71a449b6e514f7ea94e82b37ae2c8f62d474f
                           ),
                         ),
                     ],
